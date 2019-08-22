@@ -447,6 +447,14 @@ class AztecToolbar : FrameLayout, IAztecToolbar, OnMenuItemClickListener {
         }
     }
 
+    fun hideActionButtons(toolbarActions: ArrayList<IToolbarAction>) {
+        ToolbarAction.values().forEach { action ->
+            if (toolbarActions.contains(action)) {
+                toggleButtonVisibility(findViewById<ToggleButton>(action.buttonId), false)
+            }
+        }
+    }
+
     private fun getSelectedActions(): ArrayList<IToolbarAction> {
         val actions = ArrayList<IToolbarAction>()
 
@@ -470,6 +478,12 @@ class AztecToolbar : FrameLayout, IAztecToolbar, OnMenuItemClickListener {
     private fun toggleButtonState(button: View?, enabled: Boolean) {
         if (button != null) {
             button.isEnabled = enabled
+        }
+    }
+
+    private fun toggleButtonVisibility(button: View?, visible: Boolean) {
+        if (button != null && button is ToggleButton) {
+            button.visibility = if (visible) View.VISIBLE else View.GONE
         }
     }
 
